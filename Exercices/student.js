@@ -1,10 +1,10 @@
-function createStudent(name, grade) {
+function createStudent(name, year) {
 	return {
 		name: name,
-		grade: grade,
+		year: year,
 		courses: [],
 		info: function() {
-			console.log(this.name + ' is a ' + grade + ' year student');
+			console.log(this.name + ' is a ' + year + ' year student');
 		},
 		listCourses: function() {
 			console.log(this.courses);
@@ -40,7 +40,7 @@ function createStudent(name, grade) {
 	}
 }
 
-var foo = createStudent('Foo', '1st');
+/*var foo = createStudent('Foo', '1st');
 foo.info();
 foo.listCourses();
 foo.addCourse({name: 'Math', code: 101});
@@ -52,4 +52,4 @@ foo.addNote(102, 'Difficult Subject');
 foo.viewNotes();
 foo.updateNote(102, 'Easy Subject');
 foo.updateNote(101, 'All Done');
-foo.viewNotes();
+foo.viewNotes();*/
