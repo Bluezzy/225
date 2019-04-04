@@ -103,7 +103,50 @@ var _ = function(element) {
 			}
 			return values;
 		},
+
+		pick: function() {
+			var source = element;
+			var target = {};
+			var properties = Array.prototype.slice.call(arguments);
+
+			var i;
+			var currentProp;
+			for (i = 0; i < properties.length; i++) {
+				currentProp = properties[i];
+				if (Object.prototype.hasOwnProperty.call(source, currentProp)) {
+					target[currentProp] = source[currentProp];
+				}
+			}
+
+			return target;
+		},
+
+		omit: function() {
+			var source = element;
+			var target = {};
+			var propsToOmit = Array.prototype.slice.call(arguments);
+
+			var i;
+			var currentProp;
+			for (i = 0; i < propsToOmit.length; i++) {
+				currentProp = propsToOmit[i];
+			  if (!Object.prototype.hasOwnProperty.call(source, currentProp)) {
+				  target[currentProp] = source[currentProp];
+			  }
+			}
+
+			return target;
+		},
+
+		has: function(prop) {
+			return Object.prototype.hasOwnProperty.call(element, prop);
+		},
+
 	};
+
+	['isString', 'isNumber', 'isArray', 'isObject', 'isBoolean', 'isFunction', 'isElement'].forEach(function(method) {
+		u[method] = function() { _[method].call(u, element)};
+	});
 
 	return u;
 };
@@ -135,23 +178,30 @@ _.extend = function() {
 	return _.extend.apply(objects, objects);
 };
 
-obj = {
+_.isArray = function(input) {
+	return Array.isArray(input);
 };
 
-obj1 = {
-	z: 10,
-	y: 12,
+_.isObject = function(input) {
+	return typeof(input) === 'object' || typeof(input) === 'function';
 }
 
-obj2 = {
-	d: 4,
-	e: 5,
-	f: 6,
-};
+_.isFunction = function(input) {
+	return typeof(input) === 'function';
+}
 
-properties = {
-	a: 1,
-	b: 2,
-	c: 3,
-	d: 5,
-};
+_.isBoolean = function(input) {
+	return typeof(input) === 'boolean' || input instanceof Boolean;
+}
+
+_.isString = function(input) {
+	return typeof(input) === 'string' || input instanceof String;
+}
+
+_.isNumber = function(input) {
+	return typeof(input) === 'number' || input instanceof Number;
+}
+
+_.isElement = function(input) {
+	return input && input.nodeType === 1;
+}
